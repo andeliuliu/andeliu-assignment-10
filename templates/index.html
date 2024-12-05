@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        main {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .results {
+            margin-top: 30px;
+        }
+
+        .results ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .results li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            background-color: #f8f8f8;
+        }
+
+        .results img {
+            width: 200px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+
+        .results p {
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            margin: 20px auto;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Image Search</h1>
+    </header>
+    <main>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label for="query_type">Query Type:</label>
+            <select name="query_type" id="query_type">
+                <option value="text">Text Query</option>
+                <option value="image">Image Query</option>
+                <option value="both">Combined Query</option>
+            </select>
+
+            <label for="text_query">Text Query:</label>
+            <input type="text" name="text_query" id="text_query">
+
+            <label for="image_query">Image Query:</label>
+            <input type="file" name="image_query" id="image_query">
+
+            <label for="weight">Weight (for combined query):</label>
+            <input type="number" name="weight" step="0.1" min="0" max="1" value="0.5">
+
+            <label for="use_pca">Use PCA Embeddings:</label>
+            <input type="checkbox" name="use_pca" id="use_pca">
+
+            <button type="submit">Search</button>
+        </form>
+
+        {% if results %}
+            <div class="results">
+                <h2>Search Results:</h2>
+                <ul>
+                    {% for file_name, score in results %}
+                        <li>
+                            <img src="/{{ file_name }}" alt="Result Image">
+                            <p>Similarity Score: {{ score }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Image Search App</p>
+    </footer>
+</body>
+</html>
