@@ -15,9 +15,6 @@ model, _, preprocess = create_model_and_transforms('ViT-B/32', pretrained='opena
 tokenizer = get_tokenizer('ViT-B-32')
 model.eval()
 
-# Specify the directory where the images are located
-image_directory = './coco_images_resized'
-
 # Load precomputed embeddings and file names
 df = pd.read_pickle('image_embeddings.pickle')
 embeddings = np.vstack(df['embedding'].values)
