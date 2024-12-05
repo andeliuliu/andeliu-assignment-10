@@ -3,3 +3,4 @@
 /static/coco_images_resized/
 !static/
 .DS_Store
+.image_embeddings.pickle
